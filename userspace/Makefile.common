@@ -3,13 +3,13 @@ OBJS = main.o lib.o
 
 ################################################################################
 
-CFLAGS = -g -Wall -Wextra ${EXTRA_CFLAGS}
+CFLAGS = -g -Wall -Wextra $(EXTRA_CFLAGS)
 
-${TARGET}:${OBJS}
-	${CC} ${CFLAGS} $^ ${LIBS} -o $@
+$(TARGET):$(OBJS)
+	$(CC) $(CFLAGS) $^ $(LIBS) -o $@
 
 %.o: %.c
-	${CC} -c ${CFLAGS} $<
+	$(CC) -c $(CFLAGS) $<
 
 clean:
-	rm -f ${TARGET} ${OBJS} *~
+	rm -f $(TARGET) $(OBJS) *~

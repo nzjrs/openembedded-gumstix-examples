@@ -1,19 +1,19 @@
-# Makefile for building with cross tools on another machine
+# Makefile for building with cross tools for another machine
 
-OETMP = ${OVEROTOP}/tmp
+OETMP = $(OVEROTOP)/tmp
 
-TOOLDIR = ${OETMP}/cross/armv7a/bin
+TOOLDIR = $(OETMP)/cross/armv7a/bin
 
-STAGEDIR = ${OETMP}/staging/armv7a-angstrom-linux-gnueabi/usr
+STAGEDIR = $(OETMP)/staging/armv7a-angstrom-linux-gnueabi/usr
 
-CC = ${TOOLDIR}/arm-angstrom-linux-gnueabi-gcc
+CC = $(TOOLDIR)/arm-angstrom-linux-gnueabi-gcc
 
-LIBDIR = ${STAGEDIR}/lib
+LIBDIR = $(STAGEDIR)/lib
 
-INCDIR = ${STAGEDIR}/include
+INCDIR = $(STAGEDIR)/include
 
-LIBS = -L ${LIBDIR}
+LIBS = -L $(LIBDIR)
 
-EXTRA_CFLAGS = -I ${INCDIR}
+EXTRA_CFLAGS = -I $(INCDIR)
 
 include Makefile.common
