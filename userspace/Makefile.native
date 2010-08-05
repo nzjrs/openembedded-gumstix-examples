@@ -1,0 +1,4 @@
+CC = gcc
+EXTRA_CFLAGS =
+
+include Makefile.common
