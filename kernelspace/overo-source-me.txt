@@ -1,34 +1,39 @@
-if [[ -z "${KERNEL_CROSS_BUILD_ENVIRONMENT_SOURCED}" ]]; then
+if [[ -n "${OVEROTOP}" ]]; then
+    if [[ -z "${KERNEL_CROSS_BUILD_ENVIRONMENT_SOURCED}" ]]; then
 
-	MACHINE=overo
+	    MACHINE=overo
 
-	OETMP=${OVEROTOP}/tmp
+	    OETMP=${OVEROTOP}/tmp
 
-	SYSROOTSDIR=${OETMP}/sysroots
-	STAGEDIR=${SYSROOTSDIR}/`uname -m`-linux
-	CROSSBINDIR=${OETMP}/cross/armv7a/bin
+	    SYSROOTSDIR=${OETMP}/sysroots
+	    STAGEDIR=${SYSROOTSDIR}/`uname -m`-linux
+	    CROSSBINDIR=${OETMP}/cross/armv7a/bin
 
-	export KERNELDIR=${SYSROOTSDIR}/${MACHINE}-angstrom-linux-gnueabi/kernel
+	    export KERNELDIR=${SYSROOTSDIR}/${MACHINE}-angstrom-linux-gnueabi/kernel
 
-	PATH=${STAGEDIR}/bin:${PATH}
-	PATH=${STAGEDIR}/sbin:${PATH}
-	PATH=${CROSSBINDIR}:${PATH}
-	PATH=${STAGEDIR}/usr/bin:${PATH}
-	PATH=${STAGEDIR}/usr/sbin:${PATH}
-	PATH=${STAGEDIR}/usr/bin/armv7a-angstrom-linux-gnueabi:${PATH}
+	    PATH=${STAGEDIR}/bin:${PATH}
+	    PATH=${STAGEDIR}/sbin:${PATH}
+	    PATH=${CROSSBINDIR}:${PATH}
+	    PATH=${STAGEDIR}/usr/bin:${PATH}
+	    PATH=${STAGEDIR}/usr/sbin:${PATH}
+	    PATH=${STAGEDIR}/usr/bin/armv7a-angstrom-linux-gnueabi:${PATH}
 
-	unset CFLAGS CPPFLAGS CXXFLAGS LDFLAGS MACHINE
+	    unset CFLAGS CPPFLAGS CXXFLAGS LDFLAGS MACHINE
 
-	export ARCH="arm"
-	export CROSS_COMPILE="arm-angstrom-linux-gnueabi-"
-	export CC="arm-angstrom-linux-gnueabi-gcc"
-	export LD="arm-angstrom-linux-gnueabi-ld"
-	export STRIP="arm-angstrom-linux-gnueabi-strip"
+	    export ARCH="arm"
+	    export CROSS_COMPILE="arm-angstrom-linux-gnueabi-"
+	    export CC="arm-angstrom-linux-gnueabi-gcc"
+	    export LD="arm-angstrom-linux-gnueabi-ld"
+	    export STRIP="arm-angstrom-linux-gnueabi-strip"
 
-	export KERNEL_CROSS_BUILD_ENVIRONMENT_SOURCED="true"
+	    export KERNEL_CROSS_BUILD_ENVIRONMENT_SOURCED="true"
 
-	echo "Altered environment for cross building a kernel module with OE tools."
+	    echo "Altered environment for cross building a kernel module with OE tools."
+    else
+	    echo "Cross build environment already configured."
+    fi
 else
-	echo "Cross build environment already configured."
+    echo "*** \$OVEROTOP is undefined! Source your profile"
 fi
+
 
