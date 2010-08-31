@@ -1,32 +1,34 @@
 if [[ -n "${OVEROTOP}" ]]; then
     if [[ -z "${KERNEL_CROSS_BUILD_ENVIRONMENT_SOURCED}" ]]; then
 
-	    MACHINE=overo
+        # should work for MACHINE=beagleboard also, you will have to set OETMP correctly
+        MACHINE=overo
 
-	    OETMP=${OVEROTOP}/tmp
+        # Set OETMP to be your OE config TMPDIR. This is a configurable param for OE. 
 
-	    SYSROOTSDIR=${OETMP}/sysroots
-	    STAGEDIR=${SYSROOTSDIR}/`uname -m`-linux
-	    CROSSBINDIR=${OETMP}/cross/armv7a/bin
+        # For gumstix setups, look in ${OVEROTOP}/build/conf/site.conf
+        # This is the gumstix default.
+        OETMP=${OVEROTOP}/tmp
 
-	    export KERNELDIR=${SYSROOTSDIR}/${MACHINE}-angstrom-linux-gnueabi/kernel
+        # For beagleboard setups, look in ${OETREE}/build/conf/local.conf
+        # This is the beagleboard default.
+        # OETMP=${OETREE}/tmp
 
-	    PATH=${STAGEDIR}/bin:${PATH}
-	    PATH=${STAGEDIR}/sbin:${PATH}
-	    PATH=${CROSSBINDIR}:${PATH}
-	    PATH=${STAGEDIR}/usr/bin:${PATH}
-	    PATH=${STAGEDIR}/usr/sbin:${PATH}
-	    PATH=${STAGEDIR}/usr/bin/armv7a-angstrom-linux-gnueabi:${PATH}
+        SYSROOTSDIR=${OETMP}/sysroots
+        STAGEDIR=${SYSROOTSDIR}/`uname -m`-linux/usr
 
-	    unset CFLAGS CPPFLAGS CXXFLAGS LDFLAGS MACHINE
+        export KERNELDIR=${SYSROOTSDIR}/${MACHINE}-angstrom-linux-gnueabi/kernel
 
-	    export ARCH="arm"
-	    export CROSS_COMPILE="arm-angstrom-linux-gnueabi-"
-	    export CC="arm-angstrom-linux-gnueabi-gcc"
-	    export LD="arm-angstrom-linux-gnueabi-ld"
-	    export STRIP="arm-angstrom-linux-gnueabi-strip"
+        PATH=${STAGEDIR}/bin:${PATH}
+        PATH=${STAGEDIR}/armv7a/bin:${PATH}
 
-	    export KERNEL_CROSS_BUILD_ENVIRONMENT_SOURCED="true"
+        unset CFLAGS CPPFLAGS CXXFLAGS LDFLAGS MACHINE
+
+        export ARCH="arm"
+        export CROSS_COMPILE="arm-angstrom-linux-gnueabi-"
+        export CC="arm-angstrom-linux-gnueabi-gcc"
+        export LD="arm-angstrom-linux-gnueabi-ld"
+        export KERNEL_CROSS_BUILD_ENVIRONMENT_SOURCED="true"
 
 	    echo "Altered environment for cross building a kernel module with OE tools."
     else
@@ -35,5 +37,3 @@ if [[ -n "${OVEROTOP}" ]]; then
 else
     echo "*** \$OVEROTOP is undefined! Source your profile"
 fi
-
-
