@@ -18,6 +18,6 @@ EXTRA_CFLAGS = -I $(INCDIR)
 
 ifeq ($(strip $(OVEROTOP)),)
     $(error $$OVEROTOP is undefined! Source your profile)
-else
+endif
 
 include Makefile.common
